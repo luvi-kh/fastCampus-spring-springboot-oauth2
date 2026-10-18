@@ -1,3 +1,12 @@
+--drop table oauth_client_details;
+--drop table oauth_client_token;
+--drop table oauth_access_token;
+--drop table oauth_refresh_token;
+--drop table oauth_code;
+--drop table oauth_approvals;
+--drop table ClientDetails;
+
+
 create table IF NOT EXISTS oauth_client_details (
   client_id VARCHAR(256) PRIMARY KEY,
   resource_ids VARCHAR(256),

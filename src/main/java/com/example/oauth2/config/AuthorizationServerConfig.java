@@ -30,15 +30,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
                 .jdbc(dataSource)
-        ;
-//                .inMemory()
-//                .withClient("client")
-//                .secret("{bcrypt}$2a$10$iP9ejueOGXO29.Yio7rqeuW9.yOC4YaV8fJp3eIWbP45eZSHFEwMG")  // password
-//                .redirectUris("http://localhost:9000/callback")
-//                .authorizedGrantTypes("authorization_code", "implicit", "password", "client_credentials", "refresh_token")
-//                .accessTokenValiditySeconds(120)
-//                .refreshTokenValiditySeconds(240)
-//                .scopes("read_profile");
+                .inMemory()
+                .withClient("client")
+                .secret("{bcrypt}$2a$10$iP9ejueOGXO29.Yio7rqeuW9.yOC4YaV8fJp3eIWbP45eZSHFEwMG")  // password
+                .redirectUris("http://localhost:8080/callback")
+                .authorizedGrantTypes("authorization_code", "implicit", "password", "client_credentials", "refresh_token")
+                .accessTokenValiditySeconds(120)
+                .refreshTokenValiditySeconds(240)
+                .scopes("\"read_profile\", \"read_email\", \"read_address\"")
+                .autoApprove(false);
     }
 
 
