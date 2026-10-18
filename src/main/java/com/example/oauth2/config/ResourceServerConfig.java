@@ -1,4 +1,4 @@
-/*package com.example.oauth2.config;
+package com.example.oauth2.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,4 +14,4 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.authorizeRequests().anyRequest().authenticated().and()
                 .requestMatchers().antMatchers("/api/**");
     }
-}*/
+}

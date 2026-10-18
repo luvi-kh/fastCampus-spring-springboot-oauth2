@@ -20,10 +20,10 @@ import java.util.*;
 @RestController
 public class SimpleController {
 
-    /*@GetMapping("/api/session")
+    @GetMapping("/api/session")
     public Authentication session() {
         return SecurityContextHolder.getContext().getAuthentication();
-    }*/
+    }
 
     @GetMapping("/")
     public Authentication index(Authentication authentication){
