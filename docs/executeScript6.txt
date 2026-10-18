@@ -1,0 +1,49 @@
+docker run -p 3306:3306 --name oauth2-mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -d mysql:latest
+docker exec -it oauth2-mysql mysql -u root
+CREATE DATABASE oauth2;
+
+./mvnw spring-boot:run -Dspring-boot.run.profiles=init
+./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+
+
+docker-compose down -v
+sudo rm -rf volumes
+docker-compose up -d
+
+*로긴후 넣어야할 url
+1) Authorization Code Grant Type
+http://localhost:8080/oauth/authorize?client_id=client&redirect_uri=http://localhost:8080/callback&response_type=code&scopes=read_profile,read_email,read_address
+
+curl -X POST http://localhost:8080/oauth/token \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -H "Authorization: Basic Y2xpZW50OnBhc3N3b3Jk" \
+     --data-urlencode "grant_type=authorization_code" \
+     --data-urlencode "redirect_uri=http://localhost:8080/callback" \
+     --data-urlencode "scope=read_profile read_email read_address" \
+     --data-urlencode "code=dSfqwI"
+
+2) Implicit Grant Type
+http://localhost:8080/oauth/authorize?client_id=client&redirect_uri=http://localhost:8080/callback&response_type=token&scopes=read_profile,read_email,read_address&state=test
+
+curl -X GET http://localhost:8080/api/session \
+     -H "Accept: application/json" \
+     -H "Authorization: Bearer c6523ea7-d276-49bc-ad8d-fe826b48e0c0"
+
+3) Resource Owner Password Credentials Grant Type
+curl -X POST http://localhost:8080/oauth/token \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -H "Authorization: Basic Y2xpZW50OnBhc3N3b3Jk" \
+     --data-urlencode "username=user" \
+     --data-urlencode "password=pass" \
+     --data-urlencode "grant_type=password" \
+     --data-urlencode "scopes=read_email"
+
+4) Client Credentials Grant Type
+curl -X POST http://localhost:8080/oauth/token \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -H "Authorization: Basic Y2xpZW50OnBhc3N3b3Jk" \
+     --data-urlencode "grant_type=client_credentials" \
+     --data-urlencode "scopes=read_email"
+
+
+
